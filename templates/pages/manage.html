@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="manage-page">
+    <h2>Quản lý</h2>
+    <div class="manage-content">
+        <div class="manage-actions">
+            <button class="action-btn">
+                <i class="fas fa-plus"></i>
+                Thêm Tab mới
+            </button>
+            <button class="action-btn">
+                <i class="fas fa-sync"></i>
+                Làm mới
+            </button>
+        </div>
+        
+        <div class="manage-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tên Tab</th>
+                        <th>Trạng thái</th>
+                        <th>Cập nhật lần cuối</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Table content will be dynamically populated -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %} 

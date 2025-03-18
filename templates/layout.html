@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validator Monitoring</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="left-header">
+                <div class="logo">
+                    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo">
+                </div>
+                
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+
+            <div class="user-info">
+                <span class="username">{{ current_user.username }}</span>
+                <div class="settings-dropdown">
+                    <button class="settings-btn">
+                        <i class="fas fa-cog"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="#profile">Thông tin cá nhân</a>
+                        <a href="{{ url_for('logout') }}">Đăng xuất</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main>
+            <div class="sidebar">
+                <div class="menu-buttons">
+                    <button class="menu-btn" data-page="home">
+                        <i class="fas fa-home"></i>
+                        <span class="btn-text">Trang chủ</span>
+                    </button>
+                    <button class="menu-btn" data-page="stats">
+                        <i class="fas fa-chart-line"></i>
+                        <span class="btn-text">Thống kê</span>
+                    </button>
+                    <button class="menu-btn" data-page="manage">
+                        <i class="fas fa-tasks"></i>
+                        <span class="btn-text">Quản lý</span>
+                    </button>
+                    <button class="menu-btn" data-page="settings">
+                        <i class="fas fa-cog"></i>
+                        <span class="btn-text">Cài đặt</span>
+                    </button>
+                    <button class="menu-btn" data-page="info">
+                        <i class="fas fa-info-circle"></i>
+                        <span class="btn-text">Thông tin</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="content">
+                {% block content %}{% endblock %}
+            </div>
+        </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html> 

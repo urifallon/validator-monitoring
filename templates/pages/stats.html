@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="stats-page">
+    <h2>Thống kê</h2>
+    <div class="stats-content">
+        <div class="stats-grid">
+            <div class="stats-card">
+                <h3>Tổng số Tab</h3>
+                <div class="stats-value">8</div>
+            </div>
+            <div class="stats-card">
+                <h3>Tab đang hoạt động</h3>
+                <div class="stats-value">4</div>
+            </div>
+            <div class="stats-card">
+                <h3>Tab không hoạt động</h3>
+                <div class="stats-value">4</div>
+            </div>
+        </div>
+        
+        <div class="stats-chart">
+            <h3>Biểu đồ hoạt động</h3>
+            <div id="activity-chart"></div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

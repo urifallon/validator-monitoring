@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validator Monitoring</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="left-header">
+                <div class="logo">
+                    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo">
+                </div>
+                
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+
+            <div class="user-info">
+                <span class="username">{{ current_user.username }}</span>
+                <div class="settings-dropdown">
+                    <button class="settings-btn">
+                        <i class="fas fa-cog"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="#profile">Thông tin cá nhân</a>
+                        <a href="{{ url_for('logout') }}">Đăng xuất</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main>
+            <div class="sidebar">
+                <div class="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <div class="menu-buttons">
+                    <button class="menu-btn active" data-page="home">
+                        <i class="fas fa-home"></i>
+                        <span class="btn-text">Trang chủ</span>
+                    </button>
+                    <button class="menu-btn" data-page="stats">
+                        <i class="fas fa-chart-line"></i>
+                        <span class="btn-text">Thống kê</span>
+                    </button>
+                    <button class="menu-btn" data-page="manage">
+                        <i class="fas fa-tasks"></i>
+                        <span class="btn-text">Quản lý</span>
+                    </button>
+                    <button class="menu-btn" data-page="settings">
+                        <i class="fas fa-cog"></i>
+                        <span class="btn-text">Cài đặt</span>
+                    </button>
+                    <button class="menu-btn" data-page="info">
+                        <i class="fas fa-info-circle"></i>
+                        <span class="btn-text">Thông tin</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="content">
+                <!-- Home Page -->
+                <div class="page home-page active" id="home">
+                    <div class="tabs-container">
+                        <div class="grid-container">
+                            <div class="grid-item"></div>
+                            <div class="grid-item"></div>
+                            <div class="grid-item"></div>
+                            <div class="grid-item"></div>
+                            <div class="grid-item"></div>
+                        </div>
+
+                        <div class="tab-info">
+                            <!-- Tab information will be displayed here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Empty pages for routing -->
+                <div class="page stats-page" id="stats"></div>
+                <div class="page manage-page" id="manage"></div>
+                <div class="page settings-page" id="settings"></div>
+                <div class="page info-page" id="info"></div>
+            </div>
+
+            <div class="tab-list" id="tab-list">
+                <h3>Danh sách Tab</h3>
+                <div class="search-box">
+                    <input type="text" placeholder="Tìm kiếm tab...">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="tab-items">
+                    <div class="tab-item">
+                        <span class="tab-name">Tab 1</span>
+                        <span class="tab-status active">ON</span>
+                    </div>
+                    <div class="tab-item">
+                        <span class="tab-name">Tab 2</span>
+                        <span class="tab-status inactive">OFF</span>
+                    </div>
+                    <div class="tab-item">
+                        <span class="tab-name">Tab 3</span>
+                        <span class="tab-status active">ON</span>
+                    </div>
+                    <div class="tab-item">
+                        <span class="tab-name">Tab 4</span>
+                        <span class="tab-status inactive">OFF</span>
+                    </div>
+                    <div class="tab-item">
+                        <span class="tab-name">Tab 5</span>
+                        <span class="tab-status active">ON</span>
+                    </div>
+                    <div class="tab-item">
+                        <span class="tab-name">Tab 6</span>
+                        <span class="tab-status inactive">OFF</span>
+                    </div>
+                    <div class="tab-item">
+                        <span class="tab-name">Tab 7</span>
+                        <span class="tab-status active">ON</span>
+                    </div>
+                    <div class="tab-item">
+                        <span class="tab-name">Tab 8</span>
+                        <span class="tab-status inactive">OFF</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Menu Overlay -->
+    <div class="menu-overlay"></div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html> 
