@@ -276,7 +276,12 @@ class DashboardManager {
 class ManageManager {
     constructor() {
         if (!this.isManagePage()) return;
+        
+        // Khởi tạo danh sách loại theo dõi từ localStorage
+        this.monitorTypes = JSON.parse(localStorage.getItem('monitorTypes')) || [];
+        
         this.initializeEventListeners();
+        this.renderMonitorTypes();
     }
 
     isManagePage() {
@@ -284,9 +289,16 @@ class ManageManager {
     }
 
     initializeEventListeners() {
+        // Form thêm VPS
         const addVPSForm = document.getElementById('addVPSForm');
         if (addVPSForm) {
             addVPSForm.addEventListener('submit', (e) => this.handleAddVPS(e));
+        }
+        
+        // Form thêm loại theo dõi
+        const addMonitorForm = document.getElementById('addMonitorForm');
+        if (addMonitorForm) {
+            addMonitorForm.addEventListener('submit', (e) => this.handleAddMonitor(e));
         }
     }
 
@@ -296,19 +308,19 @@ class ManageManager {
         const formData = {
             name: document.getElementById('vpsName').value,
             ip_address: document.getElementById('vpsIP').value,
-            type: document.getElementById('vpsType').value,
-            port: parseInt(document.getElementById('vpsPort').value)
+            type: 'custom', // Default type
+            port: 9100 // Default port (node exporter)
         };
 
         // Validation
-        if (!formData.name || !formData.ip_address || !formData.type || !formData.port) {
+        if (!formData.name || !formData.ip_address) {
             alert('Vui lòng điền đầy đủ thông tin');
             return;
         }
 
         try {
             // Thêm loading state
-            const submitBtn = document.querySelector('.submit-btn');
+            const submitBtn = e.target.querySelector('.submit-btn');
             submitBtn.textContent = 'Đang xử lý...';
             submitBtn.disabled = true;
 
@@ -327,7 +339,7 @@ class ManageManager {
             if (response.ok) {
                 const result = await response.json();
                 alert('Thêm VPS thành công!');
-                this.resetForm();
+                this.resetForm('addVPSForm');
                 
                 // Chuyển đến trang dashboard và cập nhật danh sách VPS
                 const dashboardButton = document.querySelector('.menu-btn[data-page="dashboard"]');
@@ -337,7 +349,7 @@ class ManageManager {
                 } else {
                     // Nếu không tìm thấy nút, chuyển trang trực tiếp
                     showPage('dashboard');
-                    const dashboardManager = new DashboardManager();
+                    new DashboardManager();
                 }
             } else {
                 const error = await response.json();
@@ -348,14 +360,96 @@ class ManageManager {
             alert('Có lỗi xảy ra khi thêm VPS');
             
             // Reset button
-            const submitBtn = document.querySelector('.submit-btn');
+            const submitBtn = e.target.querySelector('.submit-btn');
             submitBtn.textContent = 'Thêm VPS';
             submitBtn.disabled = false;
         }
     }
+    
+    handleAddMonitor(e) {
+        e.preventDefault();
+        
+        const type = document.getElementById('monitorType').value;
+        const port = document.getElementById('monitorPort').value;
+        
+        // Validation
+        if (!type || !port) {
+            alert('Vui lòng điền đầy đủ thông tin');
+            return;
+        }
+        
+        // Kiểm tra xem loại đã tồn tại chưa
+        const exists = this.monitorTypes.some(item => item.type === type);
+        if (exists) {
+            alert('Loại theo dõi này đã tồn tại!');
+            return;
+        }
+        
+        // Thêm loại mới vào danh sách
+        const newMonitorType = {
+            id: Date.now(), // Tạo ID duy nhất
+            type: type,
+            port: parseInt(port)
+        };
+        
+        this.monitorTypes.push(newMonitorType);
+        
+        // Lưu vào localStorage
+        localStorage.setItem('monitorTypes', JSON.stringify(this.monitorTypes));
+        
+        // Hiển thị lại danh sách
+        this.renderMonitorTypes();
+        
+        // Reset form
+        this.resetForm('addMonitorForm');
+        
+        alert('Thêm loại theo dõi thành công!');
+    }
+    
+    deleteMonitorType(id) {
+        // Xóa loại theo dõi khỏi danh sách
+        this.monitorTypes = this.monitorTypes.filter(item => item.id !== id);
+        
+        // Cập nhật localStorage
+        localStorage.setItem('monitorTypes', JSON.stringify(this.monitorTypes));
+        
+        // Hiển thị lại danh sách
+        this.renderMonitorTypes();
+    }
+    
+    renderMonitorTypes() {
+        const monitorItemsContainer = document.getElementById('monitor-items');
+        if (!monitorItemsContainer) return;
+        
+        // Xóa nội dung cũ
+        monitorItemsContainer.innerHTML = '';
+        
+        // Nếu không có loại nào
+        if (this.monitorTypes.length === 0) {
+            monitorItemsContainer.innerHTML = '<p>Chưa có loại theo dõi nào được thêm.</p>';
+            return;
+        }
+        
+        // Hiển thị các loại
+        this.monitorTypes.forEach(item => {
+            const monitorItem = document.createElement('div');
+            monitorItem.className = 'monitor-item';
+            monitorItem.innerHTML = `
+                <span class="monitor-name">${item.type}</span>
+                <span class="monitor-port">Port: ${item.port}</span>
+                <button class="delete-btn" data-id="${item.id}">Xóa</button>
+            `;
+            
+            // Thêm sự kiện xóa
+            const deleteBtn = monitorItem.querySelector('.delete-btn');
+            deleteBtn.addEventListener('click', () => this.deleteMonitorType(item.id));
+            
+            monitorItemsContainer.appendChild(monitorItem);
+        });
+    }
 
-    resetForm() {
-        document.getElementById('addVPSForm').reset();
+    resetForm(formId) {
+        document.getElementById(formId).reset();
     }
 }
 

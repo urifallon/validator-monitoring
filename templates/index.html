@@ -98,34 +98,58 @@
 
                 <!-- Manage Page -->
                 <div class="page manage-page" id="manage">
-                    <div class="manage-container">
-                        <h2>Quản lý VPS</h2>
-                        <div class="add-vps-form">
-                            <h3>Thêm VPS mới</h3>
-                            <form id="addVPSForm">
-                                <div class="form-group">
-                                    <label for="vpsName">Tên VPS:</label>
-                                    <input type="text" id="vpsName" name="name" required>
+                    <div class="manage-content">
+                        <!-- Quản lý VPS -->
+                        <div class="manage-container">
+                            <h2>Quản lý VPS</h2>
+                            <div class="add-vps-form">
+                                <h3>Thêm VPS mới</h3>
+                                <form id="addVPSForm">
+                                    <div class="form-group">
+                                        <label for="vpsName">Tên VPS:</label>
+                                        <input type="text" id="vpsName" name="name" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="vpsIP">IP Address:</label>
+                                        <input type="text" id="vpsIP" name="ip_address" required>
+                                    </div>
+                                    <button type="submit" class="submit-btn">Thêm VPS</button>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Quản lý loại theo dõi -->
+                        <div class="manage-container">
+                            <h2>Loại theo dõi</h2>
+                            <div class="add-monitor-form">
+                                <h3>Thêm loại theo dõi</h3>
+                                <form id="addMonitorForm">
+                                    <div class="form-group">
+                                        <label for="monitorType">Loại theo dõi:</label>
+                                        <select id="monitorType" name="type" required>
+                                            <option value="">-- Chọn loại --</option>
+                                            <option value="prometheus">Prometheus</option>
+                                            <option value="nodeexporter">Node Exporter</option>
+                                            <option value="promtail">Promtail</option>
+                                            <option value="loki">Loki</option>
+                                            <option value="grafana">Grafana</option>
+                                            <option value="custom">Custom</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="monitorPort">Port:</label>
+                                        <input type="number" id="monitorPort" name="port" required>
+                                    </div>
+                                    <button type="submit" class="submit-btn">Thêm loại</button>
+                                </form>
+                            </div>
+                            
+                            <div class="monitor-list">
+                                <h3>Danh sách loại đã thêm</h3>
+                                <div class="monitor-items" id="monitor-items">
+                                    <!-- Danh sách loại theo dõi sẽ được thêm vào đây bằng JavaScript -->
                                 </div>
-                                <div class="form-group">
-                                    <label for="vpsIP">IP Address:</label>
-                                    <input type="text" id="vpsIP" name="ip_address" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="vpsType">Loại:</label>
-                                    <select id="vpsType" name="type" required>
-                                        <option value="">Chọn loại</option>
-                                        <option value="prometheus">Prometheus</option>
-                                        <option value="nodeexporter">Node Exporter</option>
-                                        <option value="custom">Custom</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="vpsPort">Port:</label>
-                                    <input type="number" id="vpsPort" name="port" required>
-                                </div>
-                                <button type="submit" class="submit-btn">Thêm VPS</button>
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </div>
