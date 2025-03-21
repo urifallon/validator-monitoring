@@ -45,12 +45,12 @@
                     <i class="fas fa-bars"></i>
                 </div>
                 <div class="menu-buttons">
-                    <button class="menu-btn active" data-page="home">
+                    <button class="menu-btn active" data-page="dashboard">
                         <i class="fas fa-home"></i>
-                        <span class="btn-text">Trang chủ</span>
+                        <span class="btn-text">Dashboard</span>
                     </button>
                     <button class="menu-btn" data-page="stats">
-                        <i class="fas fa-chart-line"></i>
+                        <i class="fas fa-chart-bar"></i>
                         <span class="btn-text">Thống kê</span>
                     </button>
                     <button class="menu-btn" data-page="manage">
@@ -69,69 +69,94 @@
             </div>
 
             <div class="content">
-                <!-- Home Page -->
-                <div class="page home-page active" id="home">
+                <!-- Dashboard Page -->
+                <div class="page dashboard-page" id="dashboard">
                     <div class="tabs-container">
                         <div class="grid-container">
-                            <div class="grid-item"></div>
-                            <div class="grid-item"></div>
-                            <div class="grid-item"></div>
-                            <div class="grid-item"></div>
-                            <div class="grid-item"></div>
+                            <div class="grid-item">
+                                <iframe id="cpu-panel" src="" frameborder="0" allowfullscreen></iframe>
+                            </div>
+                            <div class="grid-item">
+                                <iframe id="ram-panel" src="" frameborder="0" allowfullscreen></iframe>
+                            </div>
+                            <div class="grid-item">
+                                <iframe id="network-panel" src="" frameborder="0" allowfullscreen></iframe>
+                            </div>
+                            <div class="grid-item">
+                                <iframe id="disk-panel" src="" frameborder="0" allowfullscreen></iframe>
+                            </div>
+                            <div class="grid-item">
+                                <iframe id="gpu-panel" src="" frameborder="0" allowfullscreen></iframe>
+                            </div>
                         </div>
 
                         <div class="tab-info">
-                            <!-- Tab information will be displayed here -->
+                            <iframe id="logs-panel" src="" frameborder="0" allowfullscreen></iframe>
                         </div>
                     </div>
                 </div>
 
-                <!-- Empty pages for routing -->
-                <div class="page stats-page" id="stats"></div>
-                <div class="page manage-page" id="manage"></div>
-                <div class="page settings-page" id="settings"></div>
-                <div class="page info-page" id="info"></div>
+                <!-- Manage Page -->
+                <div class="page manage-page" id="manage">
+                    <div class="manage-container">
+                        <h2>Quản lý VPS</h2>
+                        <div class="add-vps-form">
+                            <h3>Thêm VPS mới</h3>
+                            <form id="addVPSForm">
+                                <div class="form-group">
+                                    <label for="vpsName">Tên VPS:</label>
+                                    <input type="text" id="vpsName" name="name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="vpsIP">IP Address:</label>
+                                    <input type="text" id="vpsIP" name="ip_address" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="vpsType">Loại:</label>
+                                    <select id="vpsType" name="type" required>
+                                        <option value="">Chọn loại</option>
+                                        <option value="prometheus">Prometheus</option>
+                                        <option value="nodeexporter">Node Exporter</option>
+                                        <option value="custom">Custom</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="vpsPort">Port:</label>
+                                    <input type="number" id="vpsPort" name="port" required>
+                                </div>
+                                <button type="submit" class="submit-btn">Thêm VPS</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stats Page -->
+                <div class="page stats-page" id="stats">
+                    <h2>Thống kê</h2>
+                    <p>Nội dung trang thống kê sẽ hiển thị ở đây.</p>
+                </div>
+
+                <!-- Settings Page -->
+                <div class="page settings-page" id="settings">
+                    <h2>Cài đặt</h2>
+                    <p>Nội dung trang cài đặt sẽ hiển thị ở đây.</p>
+                </div>
+
+                <!-- Info Page -->
+                <div class="page info-page" id="info">
+                    <h2>Thông tin</h2>
+                    <p>Nội dung trang thông tin sẽ hiển thị ở đây.</p>
+                </div>
             </div>
 
             <div class="tab-list" id="tab-list">
-                <h3>Danh sách Tab</h3>
+                <h3>Danh sách VPS</h3>
                 <div class="search-box">
-                    <input type="text" placeholder="Tìm kiếm tab...">
+                    <input type="text" placeholder="Tìm kiếm VPS...">
                     <i class="fas fa-search"></i>
                 </div>
-                <div class="tab-items">
-                    <div class="tab-item">
-                        <span class="tab-name">Tab 1</span>
-                        <span class="tab-status active">ON</span>
-                    </div>
-                    <div class="tab-item">
-                        <span class="tab-name">Tab 2</span>
-                        <span class="tab-status inactive">OFF</span>
-                    </div>
-                    <div class="tab-item">
-                        <span class="tab-name">Tab 3</span>
-                        <span class="tab-status active">ON</span>
-                    </div>
-                    <div class="tab-item">
-                        <span class="tab-name">Tab 4</span>
-                        <span class="tab-status inactive">OFF</span>
-                    </div>
-                    <div class="tab-item">
-                        <span class="tab-name">Tab 5</span>
-                        <span class="tab-status active">ON</span>
-                    </div>
-                    <div class="tab-item">
-                        <span class="tab-name">Tab 6</span>
-                        <span class="tab-status inactive">OFF</span>
-                    </div>
-                    <div class="tab-item">
-                        <span class="tab-name">Tab 7</span>
-                        <span class="tab-status active">ON</span>
-                    </div>
-                    <div class="tab-item">
-                        <span class="tab-name">Tab 8</span>
-                        <span class="tab-status inactive">OFF</span>
-                    </div>
+                <div class="tab-items" id="vps-list">
+                    <!-- VPS items will be dynamically added here -->
                 </div>
             </div>
         </main>
